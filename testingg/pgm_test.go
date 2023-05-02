@@ -16,7 +16,7 @@ func TestCreateTask(t *testing.T) {
 	defer db.Close()
 
 	// Define the expected insert query and result
-	expectedInsert := "INSERT INTO todo VALUES\\('test', '60'\\)"
+	expectedInsert := "INSERT INTO todo VALUES\\('test', '50'\\);?"
 
 	mock.ExpectExec(expectedInsert).WillReturnResult(sqlmock.NewResult(1, 1))
 
