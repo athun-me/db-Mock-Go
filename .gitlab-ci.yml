@@ -1,0 +1,27 @@
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  image: golang:latest
+  script:
+    - go build -o myprogram
+  artifacts:
+    paths:
+      - myprogram
+
+test:
+  stage: test
+  image: golang:latest
+  services:
+    - postgres:latest
+  variables:
+    POSTGRES_USER: "postgres"
+    POSTGRES_PASSWORD: "athun"
+    POSTGRES_DB: "crudbase"
+  before_script:
+    - go get github.com/DATA-DOG/go-sqlmock
+    - go get github.com/stretchr/testify/assert
+  script:
+    - go test -v ./...
